@@ -1,5 +1,3 @@
-#!/bin/bash
-LC_CTYPE=fr_FR.UTF-8
 # Dépôt "sauvegarde" du GitHub "tonyontheroad"
 #
 # Ce dépôt vise avant tout à un script .sh permettant de générer un script de
