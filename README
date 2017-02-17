@@ -1,0 +1,38 @@
+#!/bin/bash
+LC_CTYPE=fr_FR.UTF-8
+# Dépôt "sauvegarde" du GitHub "tonyontheroad"
+#
+# Ce dépôt vise avant tout à un script .sh permettant de générer un script de
+# de sauvegarde pour faciliter l'ajout de dossier à sauvegarder sur un serveur
+# ou pour un usage sur un pc personnel.
+#
+# Au-delà de ce script, il faudra ajouter un appel au script sauvegarde.sh
+# dans la table cron ou tout autre plannificateur de tâches.
+#
+# Pour le moment, soin à l'utilisateur de copier des fichiers tar.gz ainsi
+# générés vers un support de son choix via SSH, scp ou autre.
+# A termes, pourquoi pas intégrer ces deux fonctions.
+#
+# Le script de sauvegarde utilise mail pour l'envois d'un rapport.
+# mail devra donc être fonctionnel sur le système où il sera exécuté.
+# Il est toujours possible de ne pas faire de rapport mail en répondant non
+# à la question de l'adresse de destinataire à l'exécution du script.
+#
+# Pour l'utilisation, rien de plus simple, lancer le script :
+# 	./script_ajout.sh
+# en ayant pris soin de passer en exécutable le fichier :
+#	chmod +x script_ajout.sh
+#
+# L'ensemble du dépôt sous la license GNU GPL v3.0.
+#
+# Libre à vous de vous en servir, de le partager, de le modifier.
+#
+# J'invite les administrateurs et utilisateurs à lire ce script et ainsi en
+# apprendre plus sur les commandes que j'emplois (je ne réinvente pas l'eau
+# chaude).
+#
+# Aussi si vous pensez que je peux améliorer mon code, vous pouvez me
+# contacter via mon GitHub :
+# 	https://github.com/tonyontheroad
+#
+# -----------------------------------------------------------------------------
