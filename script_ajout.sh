@@ -1,5 +1,5 @@
 #!/bin/bash
-
+LC_CTYPE=fr_FR.UTF-8
 # Ce script ajoute les répertoire voulu par l'amdinistrateur dans le script de
 # sauvegarde OU créer et configure le script de sauvegarde.
 #
@@ -36,11 +36,14 @@ if $newScript;then
 	echo "création du fichier sauvegarde.sh"
 
 	touch ./sauvegarde.sh
-	echo $'#!/bin/bash\n\n# Ce script sauvegarde les répertoire voulu par l amdinistrateur via le script de\n# configuration.\n#\n# Ce script fait partie intégrante du dépôt GitHub de tonyontheroad.\n# L ensemble du dépôt sous la license GNU GPL v3.0.\n#\n# Libre à vous de vous en servir, de le partager, de le modifier.\n#\n# J invite les administrateurs et utilisateurs à lire ce script et ainsi en\n# apprendre plus sur les commandes que j emplois (je ne réinvente pas l eau\n# chaude).\n#\n# Aussi si vous pensez que je peux améliorer mon code, vous pouvez me\n# contacter via mon GitHub :\n# 	https://github.com/tonyontheroad\n\#\n' > ./sauvegarde.sh
+	echo $'#!/bin/bash\n\n# Ce script sauvegarde les répertoire voulu par l amdinistrateur via le script de\n# configuration.\n#\n# Ce script fait partie intégrante du dépôt GitHub de tonyontheroad.\n# L ensemble du dépôt sous la license GNU GPL v3.0.\n#\n# Libre à vous de vous en servir, de le partager, de le modifier.\n#\n# J invite les administrateurs et utilisateurs à lire ce script et ainsi en\n# apprendre plus sur les commandes que j emplois (je ne réinvente pas l eau\n# chaude).\n#\n# Aussi si vous pensez que je peux améliorer mon code, vous pouvez me\n# contacter via mon GitHub :\n# 	https://github.com/tonyontheroad\n#\n' > ./sauvegarde.sh
+	echo -e "echo -e \042Rapport d'exécution de sauvegarde.\\\n\042 > ./mail.txt" >> ./sauvegarde.sh
 	chmod +x ./sauvegarde.sh
+
 	read -p "Voulez-vous envoyer un mail automatique lors de la sauvegarde ? (o/N) : " activeMail
 	if echo "$activeMail" | grep -iq "^o" ;then
 		read -p "Adresse du destinataire : " adresseDest
+		mail=true
 	fi
 	
 fi
@@ -95,4 +98,15 @@ else
 	echo -e "let \042"$ajoutAlias"Incr_1 = $"$ajoutAlias"Incr + 1\042" >> ./sauvegarde.sh
 	echo -e "nomFichier"$ajoutAlias"="$ajoutAlias".$"$ajoutAlias"Incr_1.tar.gz" >> ./sauvegarde.sh
 	echo -e "tar --create --file=./\$nomFichier"$ajoutAlias" --listed-incremental=./"$ajoutAlias".txt "$ajout >> sauvegarde.sh
+	if $mail;then
+		echo "date=\`date -I\`" >> ./sauvegarde.sh
+		echo "heure=\`date | cut -c16-23\`" >> ./sauvegarde.sh
+		echo -e "echo -e \042Le script de sauvegarde sur `uname -n` pour l'alias \$ajoutAlias s'est correctement effectué le \$date à \$heure.\\\n\042 >> ./mail.txt" >> ./sauvegarde.sh
+	fi
+	if cat ./sauvegarde.sh | grep "mail -s";then
+		sed '/mail -s/d' ./sauvegarde.sh
+		echo -e "mail -s \042[Sauvegarde] effectuée sur `uname -n`\042 $adresseDest < ./mail.txt" >> sauvegarde.sh
+	elif ! cat ./sauvegarde.sh | grep "mail -s";then
+		echo -e "mail -s \042[Sauvegarde] effectuée sur `uname -n`\042 $adresseDest < ./mail.txt" >> sauvegarde.sh
+	fi
 fi
