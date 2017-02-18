@@ -39,13 +39,9 @@ if $newScript;then
 		--backtitle "Sauvegardeur" \
 		--yesno "Le fichier sauvegarde.sh n'existe pas ! Voulez-vous le créer ?" 25 90
 	case $? in
-		1)	exit 1;;
-		255)	exit 1;;
+		1)	clear && exit 1;;
+		255)	clear && exit 1;;
 	esac
-	# read -p "Le fichier sauvegarde.sh n'existe pas ! Faut-il le créer ? (O/n) : " on
-	# if echo "$on" | grep -iq "^n" ;then 
-	#	exit 1
-	# fi
 fi
 
 # Création du script de sauvegarde si celui-ci est absent dans le dossier :
@@ -87,8 +83,8 @@ funMenu(){ $DIALOG --title "Menu" \
 valret=$?
 choixMenu=$(<$fichtemp)
 case $valret in
-	1)	exit 1;;
-	255)	exit 1;;
+	1)	clear && exit 1;;
+	255)	clear && exit 1;;
 esac
 
 if [ $choixMenu = "Afficher" ];then
@@ -156,8 +152,8 @@ elif [ $choixMenu = "Ajouter" ];then
 	type : $typeChemin" 25 90
 	
 	case $? in
-		1) exit 1;;
-		255) exit 1;;
+		1) clear && exit 1;;
+		255) clear && exit 1;;
 	esac
 	
 	if [ -f "$alias.1.tar.gz" ];then
@@ -245,7 +241,7 @@ elif [ $choixMenu = "Mail" ];then
 		case $? in
 			0)	mail=true;;
 			1)	mail=false;;
-			255)	exit 1;;
+			255)	clear && exit 1;;
 		esac
 		
 		if $mail;then
@@ -273,8 +269,7 @@ elif [ $choixMenu = "Mail" ];then
 # ---------------------------- QUITTER -----------------------------------------------
 
 elif [ $choixMenu = "Quitter" ];then
-	clear
-	exit 1
+	clear && exit 1
 fi
 
 }
