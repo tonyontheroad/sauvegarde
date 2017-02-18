@@ -274,6 +274,7 @@ elif [ $choixMenu = "Mail" ];then
 
 elif [ $choixMenu = "Quitter" ];then
 	exit 1
+	clear
 fi
 
 }
