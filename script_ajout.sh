@@ -273,8 +273,8 @@ elif [ $choixMenu = "Mail" ];then
 # ---------------------------- QUITTER -----------------------------------------------
 
 elif [ $choixMenu = "Quitter" ];then
-	exit 1
 	clear
+	exit 1
 fi
 
 }
